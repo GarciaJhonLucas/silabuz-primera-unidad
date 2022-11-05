@@ -21,7 +21,7 @@ def get_image_pokemon(nombre_pokemon: str)->str:
     return pokemon_data['sprites']["front_default"]
 
 def listar_pokemon_generacion() -> None:
-    config.imprmir_cabezeras('GENERACION DE POKEMONS')
+    config.imprmir_cabezeras('BUSCAR POR GENERACION')
     numero_generacion = config.mensaje_opcion('Ingrese el número de generacion desde el 1 al 8')
 
     if numero_generacion > 0 and numero_generacion <= 8:
