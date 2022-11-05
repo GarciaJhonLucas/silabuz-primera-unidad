@@ -65,3 +65,80 @@ def ejecutar_opcion(opciones, opcion):
     #Ejecuta las opciones y da una pausa antes de continuar
     opciones[opcion][1]()
     imprimir_informacion()
+
+def opcion1():
+    #cargar libros del archivo a la memoria
+    Gestor_libros.cargar_archivo()
+
+def opcion2():
+    #listar libros
+    Gestor_libros.listar_libros()
+
+def opcion3():
+    #obtener datos de un libro y agregarlo a la lista
+    pass
+
+def opcion4():
+    pass
+
+def opcion5():
+    #Menu de la opcion 5
+    opciones = {
+        '1': ("Buscar por ISBN.",opcion5_1),
+        '2': ("Buscar por Titulo de libro",opcion5_2),
+        '3': ("Volver",)
+    }
+    while True:
+        imprimir_menu(opciones,"Buscar libros por ISBN o titulo".upper())
+        opcion = mensaje_opcion("Seleccione una opcion del 1 al 3",3)
+        if opcion == '3':
+            break
+        ejecutar_opcion(opciones,opcion)
+    
+def opcion5_1():
+    pass
+
+def opcion5_2():
+    pass
+
+def opcion6():
+    Gestor_libros.ordenar_libros()
+
+def opcion7():
+    #Menu de la opcion 7
+    opciones = {
+        '1': ("Buscar por autor.",opcion7_1),
+        '2': ("Buscar por editorial",opcion7_2),
+        '3': ("Buscar por genero",opcion7_3),
+        '4': ("Volver",)
+    }
+    while True:
+        imprimir_menu(opciones,"Buscar libros por autor, editorial o genero".upper())
+        opcion = mensaje_opcion("Seleccione una opcion del 1 al 4",4)
+        if opcion == '4':
+            break
+        ejecutar_opcion(opciones,opcion)
+
+def opcion7_1():
+    #buscar por autor
+    pass
+
+def opcion7_2():
+    #buscar por editorial
+    pass
+
+def opcion7_3():
+    #buscar por genero
+    pass
+
+def opcion8():
+    #muestra los libros que tengan la cantidad ingresada de autores
+    pass
+
+def opcion9():
+    #edita un libro
+    pass
+
+def opcion10():
+    #Graba en el archivo
+    pass
