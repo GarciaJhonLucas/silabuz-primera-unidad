@@ -37,12 +37,16 @@ class Gestor_libros:
     @classmethod
     def eliminar_libro(cls,id: int) -> None:
         #elimina un libro, segun su id, de la lista
-        pass
+        for item in cls.__libros:
+            if id == item[0]:
+                cls.__libros.remove(i)
     
     #Filtra los libros segun el criterio elegido: 
     @classmethod
     def buscar_libro_isbn(cls, clave: str) -> List[Libro]:
-        pass
+        for item in cls.__libros:
+            if clave == item[3]:
+                return item
     
     @classmethod
     def buscar_libro_titulo(cls, clave: str) -> List[Libro]:

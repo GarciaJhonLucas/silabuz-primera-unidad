@@ -75,11 +75,21 @@ def opcion2():
     Gestor_libros.listar_libros()
 
 def opcion3():
-    #obtener datos de un libro y agregarlo a la lista
+    Gestor_libros.agregar_libro()
     pass
 
 def opcion4():
-    pass
+    opciones = {
+        '1': ("Ingresar Id Libro.",opcion4),
+        '2': ("Volver",)
+    }
+    while True:
+        imprimir_menu(opciones,"Eliminar Libro mediante Id".upper())
+        opcion = mensaje_opcion("Seleccione una opcion del 1 al 2",2)
+        if opcion == '2':
+            break
+    Gestor_libros.eliminar_libro(id)
+    
 
 def opcion5():
     #Menu de la opcion 5
@@ -96,7 +106,7 @@ def opcion5():
         ejecutar_opcion(opciones,opcion)
     
 def opcion5_1():
-    pass
+    Gestor_libros.buscar_libro_isbn(clave)
 
 def opcion5_2():
     pass
