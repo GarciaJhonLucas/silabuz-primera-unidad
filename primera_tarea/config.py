@@ -134,19 +134,18 @@ def opcion7_1():
 
 def opcion7_2():
     Gestor_libros.buscar_libro_editorial(clave)
-    
 
 def opcion7_3():
     Gestor_libros.buscar_libro_genero(clave)
 
 def opcion8():
-    #muestra los libros que tengan la cantidad ingresada de autores
+    Gestor_libros.buscar_libro_autor(clave)
     pass
 
 def opcion9():
-    #edita un libro
+    Gestor_libros.actualizar_libro()
     pass
 
 def opcion10():
-    #Graba en el archivo
+    Gestor_libros.grabar_archivo()
     pass
