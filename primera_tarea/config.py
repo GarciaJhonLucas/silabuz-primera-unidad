@@ -109,7 +109,7 @@ def opcion5_1():
     Gestor_libros.buscar_libro_isbn(clave)
 
 def opcion5_2():
-    pass
+    Gestor_libros.buscar_libro_titulo(clave)
 
 def opcion6():
     Gestor_libros.ordenar_libros()
@@ -130,16 +130,14 @@ def opcion7():
         ejecutar_opcion(opciones,opcion)
 
 def opcion7_1():
-    #buscar por autor
-    pass
+    Gestor_libros.buscar_libro_autor(clave)
 
 def opcion7_2():
-    #buscar por editorial
-    pass
+    Gestor_libros.buscar_libro_editorial(clave)
+    
 
 def opcion7_3():
-    #buscar por genero
-    pass
+    Gestor_libros.buscar_libro_genero(clave)
 
 def opcion8():
     #muestra los libros que tengan la cantidad ingresada de autores

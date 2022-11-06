@@ -48,21 +48,32 @@ class Gestor_libros:
             if clave == item[3]:
                 return item
     
+    #Filtra los libros segun el criterio elegido: 
     @classmethod
     def buscar_libro_titulo(cls, clave: str) -> List[Libro]:
-        pass
+        for item in cls.__libros:
+            if clave == item[0]:
+                return item
     
+    #Filtra los libros segun el criterio elegido: 
     @classmethod
     def buscar_libro_autor(cls, clave: str) -> List[Libro]:
-        pass
+        for item in cls.__libros:
+            if clave == item[4]:
+                return item
     
+    #Filtra los libros segun el criterio elegido: 
     @classmethod
     def buscar_libro_editorial(cls, clave: str) -> List[Libro]:
-        pass
+        for item in cls.__libros:
+            if clave == item[3]:
+                return item
     
     @classmethod
     def buscar_libro_genero(cls, clave: str) -> List[Libro]:
-        pass
+        for item in cls.__libros:
+            if clave == item[1]:
+                return item
     
     @classmethod
     def ordenar_libros(cls) -> None:
