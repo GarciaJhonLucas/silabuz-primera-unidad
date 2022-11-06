@@ -25,3 +25,12 @@ class Libro:
         
     def get_titulo(self) -> str:
         return self.__titulo
+
+    def get_isbn(self) -> str:
+        return self.__isbn
+
+    def get_autores(self) -> str:
+        return self.__autores
+
+    def get_editorial(self) -> str:
+        return self.__editorial
