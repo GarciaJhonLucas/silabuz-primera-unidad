@@ -4,12 +4,12 @@ from libros import Libro
 
 class Gestor_libros:
     __ruta_archivo = "libros.csv"
-    __libros= []
+    __libros: List[Libro]= []
     
     @classmethod
     def cargar_archivo(cls) -> None:
         #abre el archivo y guarda los libros en memoria
-        with open(cls.__ruta_archivo) as f:
+        with open(cls.__ruta_archivo,encoding="utf8") as f:
             lista_libros = csv.DictReader(f)
             for lib in lista_libros:
                 libro = Libro(
@@ -23,7 +23,6 @@ class Gestor_libros:
     
     @classmethod
     def listar_libros(cls) -> None:
-        #Imprime los libros en la lista
         for lib in cls.__libros:
             lib.listar()
             print("---------")
@@ -31,7 +30,13 @@ class Gestor_libros:
     @classmethod
     def agregar_libro(cls, **datos) -> None:
         #carga un libro en la lista de libros
-        libro = Libro(datos["titulo"],datos["genero"],datos["isbn"],datos["editorial"],datos["autores"])
+        libro = Libro(
+            datos["titulo"],
+            datos["genero"],
+            datos["isbn"],
+            datos["editorial"],
+            datos["autores"]
+        )
         cls.__libros.append(libro)
     
     @classmethod
@@ -39,57 +44,69 @@ class Gestor_libros:
         #elimina un libro, segun su id, de la lista
         for lib in cls.__libros:
             if id == lib[0]:
-                cls.__libros.remove(i)
+                cls.__libros.remove(id)
     
-    #Filtra los libros segun el criterio elegido: 
+    #Filtra los libros segun en tipo: 
     @classmethod
-    def buscar_libro_isbn(cls, clave: str) -> List[Libro]:
+    def buscar_libro_isbn(cls, clave: str) -> Libro:
         for lib in cls.__libros:
-            if clave == lib[3]:
+            if clave == lib.get_isbn():
                 return lib
     
-    #Filtra los libros segun el criterio elegido: 
     @classmethod
     def buscar_libro_titulo(cls, clave: str) -> List[Libro]:
+        libros = []
         for lib in cls.__libros:
-            if clave == lib[0]:
-                return lib
+            if clave == lib.get_titulo():
+                libros.append(lib)
+        return libros
     
-    #Filtra los libros segun el criterio elegido:
-    def convert_author_list(author: str) -> List:
-        autor = ""
-        lista_autores = []
-        for i in author:
-            if i == ',':
-                lista_autores.append(autor)
-                autor = ""
-                continue
-            autor += i
-        lista_autores.append(autor)
-        return lista_autores
+    # #Filtra los libros segun el criterio elegido:
+    # def convert_author_list(author: str) -> List:
+    #     autor = ""
+    #     lista_autores = []
+    #     for i in author:
+    #         if i == ',':
+    #             lista_autores.append(autor)
+    #             autor = ""
+    #             continue
+    #         autor += i
+    #     lista_autores.append(autor)
+    #     return lista_autores
     
     @classmethod
     def buscar_libro_autor(cls, clave: str) -> List[Libro]:
-        num_authors = 0
-        for i in cls.__libros:
-            lista_autores = convert_author_to_list(cls.__libros[i][4])
-            if len(lista_autores) == num_authors:
-                objeto_libros.append(i)
-            elif  num_authors < len(lista_autores) or  num_authors > len(lista_autores):
-                pass
+        libros = []
+        for lib in cls.__libros:
+            if clave in lib.get_autores():
+                libros.append(lib)
+        return libros
     
     #Filtra los libros segun el criterio elegido: 
     @classmethod
     def buscar_libro_editorial(cls, clave: str) -> List[Libro]:
+        libros = []
         for lib in cls.__libros:
-            if clave == lib[3]:
-                return lib
+            if clave == lib.get_editorial():
+                libros.append(lib)
+        return libros
     
     @classmethod
     def buscar_libro_genero(cls, clave: str) -> List[Libro]:
+        libros = []
         for lib in cls.__libros:
-            if clave == lib[1]:
-                return lib
+            if clave == lib.get_genero():
+                libros.append(lib)
+        return libros
+    
+    @classmethod
+    def buscar_libro_num_autores(cls,clave: int) -> List[Libro]:
+        libros = []
+        for lib in cls.__libros:
+            if clave == len(lib.get_autores()):
+                print(len(lib.get_autores()))
+                libros.append(lib)
+        return libros
     
     @classmethod
     def ordenar_libros(cls) -> None:
@@ -98,19 +115,15 @@ class Gestor_libros:
     
     @classmethod
     def actualizar_libro(cls,**datos) -> None:
-        cls.__libros[0] = datos["titulo"]
-        cls.__libros[1] = datos["genero"]
-        cls.__libros[2] = datos["isbn"]
-        cls.__libros[3] = datos["editorial"] 
-        cls.__libros[4] = datos["autores"]
+        #Actualiza los datos de un libro
+        for lib in cls.__libros:
+            if lib.get_isbn() == datos['isbn']:
+                libro = Libro(datos)
+                lib = libro
     
     @classmethod
     def grabar_archivo(cls) -> None:
-        with open(cls.__ruta_archivo, 'r+') as fp:
-            lines = fp.readlines()
-            fp.seek(0)
-            fp.truncate()
-
+        #Graba la lista de libros en el archivo
         with open(cls.__ruta_archivo, 'a', newline='\n') as file:
             anidar = csv.writer(file)
             anidar.writerow(cls.__libros)
