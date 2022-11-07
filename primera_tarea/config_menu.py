@@ -1,13 +1,14 @@
+#es lo mismo que config.py
 import os
 from colorama import Fore
-from gestion_libros import Gestor_libros
+from gestor_libros import Gestor_libros
 
 def limpiar_consola():
     command = 'clear'
     if os.name in ('nt', 'dos'):  # Si el SO es Windows, cambia a 'cls'
         command = 'cls'
     os.system(command)
-    
+
 def mensaje_opcion(mensaje:str, salida: int)-> str:
     valor=""
     while True:
@@ -40,6 +41,12 @@ def imprimir_menu(opciones,cabecera):
         print("|" + cad_clave + cad_opciones + "|")
     
     print("="*(largo + 8))
+
+def imprimir_cabeceras(mensaje:str):
+    limpiar_consola()
+    print(f'{Fore.GREEN}'+'='*(len(mensaje)+10)+f'{Fore.RESET}')
+    print(f'{mensaje}'.center(len(mensaje)+10))
+    print(f'{Fore.GREEN}'+'='*(len(mensaje)+10)+f'{Fore.RESET}')
 
 def menu_principal():
     opciones = {
@@ -75,8 +82,20 @@ def opcion2():
     Gestor_libros.listar_libros()
 
 def opcion3():
-    Gestor_libros.agregar_libro()
-    pass
+    #obtener datos de un libro y agregarlo a la lista
+    imprimir_cabeceras("Agregando un nuevo libro")
+    titulo = input("Ingresa el titulo: ")
+    genero = input("Ingresa el genero: ")
+    isbn = input("Ingresa el ISBN: ")
+    editorial = input("Ingresa la editorial: ")
+    autores = input("Ingresa los autores (si son varios, separalos usando punto y coma): ")
+    Gestor_libros.agregar_libro(
+        titulo = titulo,
+        genero = genero,
+        isbn = isbn,
+        editorial = editorial,
+        autores = autores
+    )
 
 def opcion4():
     opciones = {
@@ -89,7 +108,6 @@ def opcion4():
         if opcion == '2':
             break
     Gestor_libros.eliminar_libro(id)
-    
 
 def opcion5():
     #Menu de la opcion 5
@@ -106,10 +124,18 @@ def opcion5():
         ejecutar_opcion(opciones,opcion)
     
 def opcion5_1():
-    Gestor_libros.buscar_libro_isbn(clave)
+    imprimir_cabeceras("Busqueda por ISBN")
+    isbn = input("Ingresa el ISBN a buscar: ")
+    libro = Gestor_libros.buscar_libro_isbn(isbn)
+    libro.listar()
 
 def opcion5_2():
-    Gestor_libros.buscar_libro_titulo(clave)
+    imprimir_cabeceras("Busqueda por Titulo")
+    titulo = input("Ingresa el titulo a buscar: ")
+    libros = Gestor_libros.buscar_libro_titulo(titulo)
+    for lib in libros:
+        lib.listar()
+        print("---------------")
 
 def opcion6():
     Gestor_libros.ordenar_libros()
@@ -130,22 +156,65 @@ def opcion7():
         ejecutar_opcion(opciones,opcion)
 
 def opcion7_1():
-    Gestor_libros.buscar_libro_autor(clave)
+    #buscar por autor
+    imprimir_cabeceras("Busqueda por autor")
+    autor = input("Ingresa el autor a buscar: ")
+    libros = Gestor_libros.buscar_libro_autor(autor)
+    for lib in libros:
+        lib.listar()
+        print("---------------")
 
 def opcion7_2():
-    Gestor_libros.buscar_libro_editorial(clave)
+    #buscar por editorial
+    imprimir_cabeceras("Busqueda por editorial")
+    editorial = input("Ingresa la editorial a buscar: ")
+    libros = Gestor_libros.buscar_libro_editorial(editorial)
+    for lib in libros:
+        lib.listar()
+        print("---------------")
 
 def opcion7_3():
-    Gestor_libros.buscar_libro_genero(clave)
+    #buscar por genero
+    imprimir_cabeceras("Busqueda por genero")
+    genero = input("Ingresa el genero a buscar: ")
+    libros = Gestor_libros.buscar_libro_genero(genero)
+    for lib in libros:
+        lib.listar()
+        print("---------------")
 
 def opcion8():
-    Gestor_libros.buscar_libro_autor(clave)
-    pass
+    #muestra los libros que tengan la cantidad ingresada de autores
+    imprimir_cabeceras("Busqueda por cantidad de autores")
+    num_autor = mensaje_opcion("Ingresa la cantidad de autores: ",99)
+    libros = Gestor_libros.buscar_libro_num_autores(num_autor)
+    if not libros:
+        print("No hay libros con esa cantidad de autores.")
+        return
+    for lib in libros:
+        lib.listar()
+        print("---------------")
 
 def opcion9():
-    Gestor_libros.actualizar_libro()
-    pass
+    #edita un libro
+    isbn = input("Ingresa el ISBN del libro: ")
+    libro = Gestor_libros.buscar_libro_isbn(isbn)
+    if not libro:
+        print("El libro buscado no existe")
+        return
+    imprimir_cabeceras("Editando un libro")
+    titulo = input("Ingresa el titulo: ")
+    genero = input("Ingresa el genero: ")
+    isbn = input("Ingresa el ISBN: ")
+    editorial = input("Ingresa la editorial: ")
+    autores = input("Ingresa los autores (si son varios, separalos usando punto y coma): ")
+    Gestor_libros.agregar_libro(
+        titulo = titulo,
+        genero = genero,
+        isbn = isbn,
+        editorial = editorial,
+        autores = autores
+    )
 
 def opcion10():
+    #Graba en el archivo
     Gestor_libros.grabar_archivo()
-    pass

@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Libro:
     __id = 1
     
@@ -21,16 +24,19 @@ class Libro:
         print("Genero: ",self.__genero)
         print("ISBN: ",self.__isbn)
         print("Editorial: ", self.__editorial)
-        print("Autor(es):",", ".join(self.__autores))
+        print("Autor(es):","; ".join(self.__autores))
         
     def get_titulo(self) -> str:
         return self.__titulo
-
+    
+    def get_genero(self) -> str:
+        return self.__genero
+    
     def get_isbn(self) -> str:
         return self.__isbn
-
-    def get_autores(self) -> str:
-        return self.__autores
-
+    
     def get_editorial(self) -> str:
         return self.__editorial
+    
+    def get_autores(self) -> List[str]:
+        return self.__autores
