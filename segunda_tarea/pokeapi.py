@@ -39,7 +39,7 @@ def get_pokemon(id: int) -> Dict:
     return data
 
 def listar_pokemon_generacion() -> None:
-    config.imprmir_cabezeras('BUSCAR POR GENERACION')
+    config.imprimir_cabezeras('BUSCAR POR GENERACION')
     numero_generacion = config.mensaje_opcion('Ingrese el número de generacion desde el 1 al 8',8)
     
     config.imprimir_cabezeras(f'LISTA DE POKEMON DE LA GENERACION {numero_generacion}')
